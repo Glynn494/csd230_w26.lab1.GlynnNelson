@@ -1,15 +1,11 @@
 package csd230.lab1;
 
 import csd230.lab1.entities.*;
-import csd230.lab1.pojos.Product;
 import csd230.lab1.repositories.CartRepository;
 import csd230.lab1.repositories.ProductRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import com.github.javafaker.Commerce;
 import com.github.javafaker.Faker;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 import org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase;
@@ -65,12 +61,12 @@ class ApplicationTests {
                 faker.number().randomDouble(2, 1, 100)
         );
 
-        CPUEntity cpu = new CPUEntity(
+        CpuEntity cpu = new CpuEntity(
                 faker.random().nextInt(1, 24),
                 faker.random().nextInt(1, 20)
         );
 
-        GPUEntity gpu = new GPUEntity(
+        GpuEntity gpu = new GpuEntity(
                 faker.random().nextInt(1, 24),
                 faker.random().nextInt(1, 16)
         );
@@ -133,7 +129,7 @@ class ApplicationTests {
 
         cpu.setCoreCount(faker.random().nextInt(1, 20));
 
-        gpu.setVramGB(faker.random().nextInt(1, 16));
+        gpu.setVramGb(faker.random().nextInt(1, 16));
 
         productRepository.save(book);
 
@@ -228,12 +224,12 @@ class ApplicationTests {
                 faker.number().randomDouble(2, 1, 100)
         );
 
-        CPUEntity cpu = new CPUEntity(
+        CpuEntity cpu = new CpuEntity(
                 faker.random().nextInt(1, 24),
                 faker.random().nextInt(1, 20)
         );
 
-        GPUEntity gpu = new GPUEntity(
+        GpuEntity gpu = new GpuEntity(
                 faker.random().nextInt(1, 24),
                 faker.random().nextInt(1, 16)
         );
@@ -264,7 +260,7 @@ class ApplicationTests {
 
         cpu.setCoreCount(faker.random().nextInt(1, 20));
 
-        gpu.setVramGB(faker.random().nextInt(1, 16));
+        gpu.setVramGb(faker.random().nextInt(1, 16));
 
         cartRepository.save(cart);
 

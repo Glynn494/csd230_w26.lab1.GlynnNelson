@@ -8,8 +8,8 @@ classDiagram
     Serializable <|.. Product
     Product <-- CashTill
     Product <|-- ComputerHardware
-    ComputerHardware <|-- CPU
-    ComputerHardware <|-- GPU
+    ComputerHardware <|-- Cpu
+    ComputerHardware <|-- Gpu
     Product <-- Cart
 
     class Cart {
@@ -123,12 +123,12 @@ classDiagram
         +boolean equals(Object o)
         +int hashCode()
     }
-    class CPU {
+    class Cpu {
         -int coreCount
         +int getCoreCount()
         +setCoreCount(int coreCount)
-        +CPU()
-        +CPU(int warrantyMonths, int coreCount)
+        +Cpu()
+        +Cpu(int warrantyMonths, int coreCount)
         +String toString()
         +boolean equals(Object o)
         +int hashCode()
@@ -137,12 +137,12 @@ classDiagram
         +sellItem()
         +double getPrice()
     }
-    class GPU {
-        -int vramGB
-        +GPU()
-        +GPU(int warrantyMonths, int vramGB)
-        +int getVramGB()
-        +setVramGB(int vramGB)
+    class Gpu {
+        -int vramGb
+        +Gpu()
+        +Gpu(int warrantyMonths, int vramGb)
+        +int getVramGb()
+        +setVramGb(int vramGb)
         +edit()
         +initialize()
         +sellItem()

@@ -17,11 +17,11 @@ public class Application implements CommandLineRunner {
     private final CartRepository cartRepository;
     private final MagazineRepository magazineRepository;
     private final TicketRepository ticketRepository;
-    private final CPURepository cpuRepository;
-    private final GPURepository gpuRepository;
+    private final CpuRepository cpuRepository;
+    private final GpuRepository gpuRepository;
     private final ProductRepository productRepository;
 
-    public Application(BookRepository bookRepository, DiscMagRepository discMagRepository, CartRepository cartRepository, MagazineRepository magazineRepository, TicketRepository ticketRepository, CPURepository cpuRepository, GPURepository gpuRepository, ProductRepository productRepository) {
+    public Application(BookRepository bookRepository, DiscMagRepository discMagRepository, CartRepository cartRepository, MagazineRepository magazineRepository, TicketRepository ticketRepository, CpuRepository cpuRepository, GpuRepository gpuRepository, ProductRepository productRepository) {
         this.bookRepository = bookRepository;
         this.discMagRepository = discMagRepository;
         this.cartRepository = cartRepository;
@@ -77,12 +77,12 @@ public class Application implements CommandLineRunner {
                 faker.number().randomDouble(2, 1, 100)
         );
 
-        CPUEntity cpu = new CPUEntity(
+        CpuEntity cpu = new CpuEntity(
                 faker.random().nextInt(1, 24),
                 faker.random().nextInt(1, 20)
         );
 
-        GPUEntity gpu = new GPUEntity(
+        GpuEntity gpu = new GpuEntity(
                 faker.random().nextInt(1, 24),
                 faker.random().nextInt(1, 16)
         );
@@ -148,7 +148,7 @@ public class Application implements CommandLineRunner {
 
         cpu.setCoreCount(faker.random().nextInt(1, 20));
 
-        gpu.setVramGB(faker.random().nextInt(1, 16));
+        gpu.setVramGb(faker.random().nextInt(1, 16));
 
         productRepository.save(book);
 

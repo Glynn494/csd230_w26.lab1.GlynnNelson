@@ -6,24 +6,24 @@ import jakarta.persistence.Entity;
 import java.util.Objects;
 
 @Entity
-public class GPUEntity extends ComputerHardwareEntity {
-    @Column(name = "vram_gb")
-    private int vramGB;
+public class CpuEntity extends ComputerHardwareEntity {
+    @Column(name = "core_count")
+    private int coreCount;
 
-    public int getVramGB() {
-        return vramGB;
+    public int getCoreCount() {
+        return coreCount;
     }
 
-    public void setVramGB(int vramGB) {
-        this.vramGB = vramGB;
+    public void setCoreCount(int coreCount) {
+        this.coreCount = coreCount;
     }
 
-    public GPUEntity() {
+    public CpuEntity() {
     }
 
-    public GPUEntity(int warrantyMonths, int vramGB) {
+    public CpuEntity(int warrantyMonths, int coreCount) {
         super(warrantyMonths);
-        this.vramGB = vramGB;
+        this.coreCount = coreCount;
     }
 
     @Override
@@ -38,8 +38,8 @@ public class GPUEntity extends ComputerHardwareEntity {
 
     @Override
     public String toString() {
-        return "GPU{" +
-                "vramGB=" + vramGB +
+        return "Cpu{" +
+                "coreCount=" + coreCount +
                 "} " + super.toString();
     }
 
@@ -47,12 +47,12 @@ public class GPUEntity extends ComputerHardwareEntity {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        GPUEntity gpuEntity = (GPUEntity) o;
-        return vramGB == gpuEntity.vramGB;
+        CpuEntity cpuEntity = (CpuEntity) o;
+        return coreCount == cpuEntity.coreCount;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), vramGB);
+        return Objects.hash(super.hashCode(), coreCount);
     }
 }

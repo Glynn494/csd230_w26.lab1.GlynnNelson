@@ -1,28 +1,30 @@
 package csd230.lab1.pojos;
 
+import csd230.lab1.entities.GpuEntity;
+
 import java.util.Objects;
 
 /**
- * DTO for {@link csd230.lab1.entities.GPUEntity}
+ * DTO for {@link GpuEntity}
  */
-public class GPU extends ComputerHardware{
+public class Gpu extends ComputerHardware{
 
-    private int vramGB;
+    private int vramGb;
 
-    public GPU() {
+    public Gpu() {
     }
 
-    public GPU(int warrantyMonths, int vramGB) {
+    public Gpu(int warrantyMonths, int vramGb) {
         super(warrantyMonths);
-        this.vramGB = vramGB;
+        this.vramGb = vramGb;
     }
 
-    public int getVramGB() {
-        return vramGB;
+    public int getVramGb() {
+        return vramGb;
     }
 
-    public void setVramGB(int vramGB) {
-        this.vramGB = vramGB;
+    public void setVramGb(int vramGb) {
+        this.vramGb = vramGb;
     }
 
     @Override
@@ -47,8 +49,8 @@ public class GPU extends ComputerHardware{
 
     @Override
     public String toString() {
-        return "GPU{" +
-                "vramGB=" + vramGB +
+        return "Gpu{" +
+                "vramGb=" + vramGb +
                 '}';
     }
 
@@ -56,12 +58,12 @@ public class GPU extends ComputerHardware{
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        GPU gpu = (GPU) o;
-        return vramGB == gpu.vramGB;
+        Gpu gpu = (Gpu) o;
+        return vramGb == gpu.vramGb;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), vramGB);
+        return Objects.hash(super.hashCode(), vramGb);
     }
 }

@@ -1,14 +1,17 @@
-package csd230.lab1.entities;
+package csd230.lab1.pojos;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
+import csd230.lab1.entities.CpuEntity;
 
 import java.util.Objects;
-import java.util.Set;
 
-@Entity
-public class CPUEntity extends ComputerHardwareEntity {
-    @Column(name = "core_count")
+/**
+ * DTO for {@link csd230.lab1.entities.CpuEntity}
+ */
+/**
+ * DTO for {@link CpuEntity}
+ */
+public class Cpu extends ComputerHardware{
+
     private int coreCount;
 
     public int getCoreCount() {
@@ -19,12 +22,42 @@ public class CPUEntity extends ComputerHardwareEntity {
         this.coreCount = coreCount;
     }
 
-    public CPUEntity() {
+    public Cpu() {
     }
 
-    public CPUEntity(int warrantyMonths, int coreCount) {
+    public Cpu(int warrantyMonths, int coreCount) {
         super(warrantyMonths);
         this.coreCount = coreCount;
+    }
+
+    @Override
+    public String toString() {
+        return "Cpu{" +
+                "coreCount=" + coreCount +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Cpu cpu = (Cpu) o;
+        return coreCount == cpu.coreCount;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), coreCount);
+    }
+
+    @Override
+    public void edit() {
+
+    }
+
+    @Override
+    public void initialize() {
+
     }
 
     @Override
@@ -35,25 +68,5 @@ public class CPUEntity extends ComputerHardwareEntity {
     @Override
     public double getPrice() {
         return 0;
-    }
-
-    @Override
-    public String toString() {
-        return "CPU{" +
-                "coreCount=" + coreCount +
-                "} " + super.toString();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        CPUEntity cpuEntity = (CPUEntity) o;
-        return coreCount == cpuEntity.coreCount;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), coreCount);
     }
 }
