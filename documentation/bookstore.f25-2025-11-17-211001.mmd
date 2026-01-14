@@ -1,5 +1,4 @@
 classDiagram
-    Editable <|--Product
     Product <|--Ticket
     Product <|--Publication
     Publication <|-- Book
@@ -8,90 +7,147 @@ classDiagram
     SaleableItem <|.. Product
     Serializable <|.. Product
     Product <-- CashTill
+    Product <|-- ComputerHardware
+    ComputerHardware <|-- CPU
+    ComputerHardware <|-- GPU
+    Product <-- Cart
 
-    class Product{
-        -String productId
+    class Cart {
+        -List<Product> items
+        +Cart()
+        +Cart(List<Product> items)
+        +addItem(Product item)
+        +List<Product> getItems()
+        +setItems(List<Product> items)
+        +boolean equals(Object o)
+        +int hashCode()
+        +String toString()
     }
-
+    class Product{
+        <<Abstract>>
+        -String productId
+        +String getProductId()
+        +setProductId(String productId)
+    }
     class Serializable{
         <<interface>>
     }
     class Ticket{
-        +description
-        +price
+        +String description
+        +double price
         +sellItem()
-    }
-    class Editable{
-        <<abstract>>
-        -Scanner input
-        +String getInput(String)
-        +int getInput(int)
-        +double getInput(double)
-        +boolean getInput(boolean)
-        +Date getInput(Date)
-        +Enum getInput(Enum)
-        +edit()*
-        +initialize()*
-
+        +double getPrice()
+        +initialize()
+        +edit()
+        +String toString()
     }
     class Publication{
         <<Abstract>>
         -String title
         -double price
         -int copies
-        +getPrice()
-
         +Publication()
         +Publication(String title, double price, int copies)
-        +toString()
-        +equals()
-        +hashCode()
-
+        +initialize()
+        #initPriceCopies()
+        +edit()
+        +double getPrice()
+        +setPrice(double price)
+        +String getTitle()
+        +setTitle(String title)
+        +int getCopies()
+        +setCopies(int copies)
+        +String toString()
+        +boolean equals(Object o)
+        +int hashCode()
     }
     class Book{
         -String author
-        +edit()
-        +initialize()
-        +sellItem()
-
+        -String isbn
         +Book()
-        +Book(String author)
-        +Book(String author, String title, double price, int copies)
-        +toString()
-        +equals()
-        +hashCode()
-
+        +Book(String author, String title, double price, int copies, String isbn)
+        +initialize()
+        +edit()
+        +sellItem()
+        +String getAuthor()
+        +setAuthor(String author)
+        +String toString()
+        +boolean equals(Object o)
+        +int hashCode()
     }
     class Magazine{
         -int orderQty
         -java.util.Date currentIssue
-
         +Magazine()
-        +Magazine(int orderQty, Date currentIssue, String title, double price, int copies)
-
-        +edit()
+        +Magazine(int orderQty, java.util.Date currentIssue, String title, double price, int copies)
         +initialize()
+        +edit()
         +sellItem()
+        +int getOrderQty()
+        +setOrderQty(int o)
+        +java.util.Date getCurrentIssue()
+        +setCurrentIssue(java.util.Date d)
+        +String toString()
     }
     class DiscMag{
         -boolean hasDisc
-        +edit()
-        +initialize()
-        +sellItem()
-
         +DiscMag()
-        +DiscMag(boolean, hasDisc, int orderQty, Date currentIssue, String title, double price, int copies)
-
+        +DiscMag(boolean hasDisc, int orderQty, java.util.Date currentIssue, String title, double price, int copies)
+        +initialize()
+        +edit()
+        +sellItem()
+        +boolean isHasDisc()
+        +setHasDisc(boolean h)
+        +String toString()
     }
     class CashTill{
         -double runningTotal
         +CashTill()
         +showTotal()
         +sellItem(SaleableItem item)
+        +double getRunningTotal()
     }
     class SaleableItem {
         <<interface>>
         +sellItem()
-        +getPrice()
-
+        +double getPrice()
+    }
+    class ComputerHardware {
+        <<abstract>>
+        -int warrantyMonths
+        +int getWarrantyMonths()
+        +setWarrantyMonths(int warrantyMonths)
+        +ComputerHardware()
+        +ComputerHardware(int warrantyMonths)
+        +String toString()
+        +boolean equals(Object o)
+        +int hashCode()
+    }
+    class CPU {
+        -int coreCount
+        +int getCoreCount()
+        +setCoreCount(int coreCount)
+        +CPU()
+        +CPU(int warrantyMonths, int coreCount)
+        +String toString()
+        +boolean equals(Object o)
+        +int hashCode()
+        +edit()
+        +initialize()
+        +sellItem()
+        +double getPrice()
+    }
+    class GPU {
+        -int vramGB
+        +GPU()
+        +GPU(int warrantyMonths, int vramGB)
+        +int getVramGB()
+        +setVramGB(int vramGB)
+        +edit()
+        +initialize()
+        +sellItem()
+        +double getPrice()
+        +String toString()
+        +boolean equals(Object o)
+        +int hashCode()
     }

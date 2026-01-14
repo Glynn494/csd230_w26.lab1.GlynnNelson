@@ -5,17 +5,16 @@ import java.util.Objects;
 public class Book extends Publication {
     private String author = "";
 
+    private String isbn = "";
+
+
     public Book() {
-        super();
     }
 
-    public Book(String author) {
-        this.author = author;
-    }
-
-    public Book(String author, String title, double price, int copies) {
+    public Book(String title, double price, int copies, String author, String isbn) {
         super(title, price, copies);
         this.author = author;
+        this.isbn = isbn;
     }
 
     @Override
@@ -57,20 +56,22 @@ public class Book extends Publication {
 
     @Override
     public String toString() {
-        return "Book{author='" + author + "', " + super.toString() + "}";
+        return "Book{" +
+                "author='" + author + '\'' +
+                ", isbn='" + isbn + '\'' +
+                "} " + super.toString();
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Book)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Book book = (Book) o;
-        return Objects.equals(author, book.author);
+        return Objects.equals(author, book.author) && Objects.equals(isbn, book.isbn);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), author);
+        return Objects.hash(super.hashCode(), author, isbn);
     }
 }
