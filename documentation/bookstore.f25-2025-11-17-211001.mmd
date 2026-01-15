@@ -6,7 +6,6 @@ classDiagram
     Magazine <|-- DiscMag
     SaleableItem <|.. Product
     Serializable <|.. Product
-    Product <-- CashTill
     Product <|-- ComputerHardware
     ComputerHardware <|-- Cpu
     ComputerHardware <|-- Gpu
@@ -24,7 +23,7 @@ classDiagram
         +String toString()
     }
     class Product{
-        <<Abstract>>
+        <<abstract>>
         -String productId
         +String getProductId()
         +setProductId(String productId)
@@ -42,7 +41,7 @@ classDiagram
         +String toString()
     }
     class Publication{
-        <<Abstract>>
+        <<abstract>>
         -String title
         -double price
         -int copies
@@ -99,13 +98,6 @@ classDiagram
         +boolean isHasDisc()
         +setHasDisc(boolean h)
         +String toString()
-    }
-    class CashTill{
-        -double runningTotal
-        +CashTill()
-        +showTotal()
-        +sellItem(SaleableItem item)
-        +double getRunningTotal()
     }
     class SaleableItem {
         <<interface>>
