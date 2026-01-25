@@ -55,6 +55,8 @@ public class Application implements CommandLineRunner {
                 faker.random().nextInt(1, 10000).toString()
         );
 
+        /*
+
         MagazineEntity magazine = new MagazineEntity(
                 faker.lorem().word() + " Magazine",
                 faker.number().randomDouble(2, 1, 100),
@@ -87,9 +89,13 @@ public class Application implements CommandLineRunner {
                 faker.random().nextInt(1, 16)
         );
 
+        */
+
         System.out.println("Saving products to product repository.");
 
         productRepository.save(book);
+
+        /*
 
         productRepository.save(magazine);
 
@@ -123,7 +129,11 @@ public class Application implements CommandLineRunner {
 
         cart.addProduct(gpu);
 
+         */
+
         cartRepository.save(cart);
+
+        /*
 
         System.out.println("Printing carts in cart repository and products in carts.");
 
@@ -185,7 +195,7 @@ public class Application implements CommandLineRunner {
 
         System.out.println("Deleting carts in cart repository.");
 
-        cartRepository.deleteAll();
+        //cartRepository.deleteAll();
 
         System.out.println("Sold products.");
 
@@ -202,7 +212,7 @@ public class Application implements CommandLineRunner {
 
         System.out.println("Deleting products in product repository.");
 
-        productRepository.deleteAll();
+        //productRepository.deleteAll();
 
         System.out.println("Sold products.");
 
@@ -213,6 +223,8 @@ public class Application implements CommandLineRunner {
         for(ProductEntity p : allProducts) {
             System.out.println(p.toString());
         }
+
+         */
 
     }
 }

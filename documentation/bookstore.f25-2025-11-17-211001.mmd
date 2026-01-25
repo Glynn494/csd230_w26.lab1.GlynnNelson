@@ -1,145 +1,164 @@
 classDiagram
-    Product <|--Ticket
-    Product <|--Publication
-    Publication <|-- Book
-    Publication <|-- Magazine
-    Magazine <|-- DiscMag
-    SaleableItem <|.. Product
-    Serializable <|.. Product
-    Product <|-- ComputerHardware
-    ComputerHardware <|-- Cpu
-    ComputerHardware <|-- Gpu
-    Product <-- Cart
+    ProductEntity <|-- TicketEntity
+    ProductEntity <|-- PublicationEntity
+    PublicationEntity <|-- BookEntity
+    PublicationEntity <|-- MagazineEntity
+    MagazineEntity <|-- DiscMagEntity
+    SaleableItem <|.. ProductEntity
+    Serializable <|.. ProductEntity
+    ProductEntity <|-- ComputerHardwareEntity
+    ComputerHardwareEntity <|-- CpuEntity
+    ComputerHardwareEntity <|-- GpuEntity
+    ProductEntity <-- CartEntity
+    ProductEntity <-- OrderEntity
 
-    class Cart {
-        -List<Product> items
-        +Cart()
-        +Cart(List<Product> items)
-        +addItem(Product item)
-        +List<Product> getItems()
-        +setItems(List<Product> items)
+    class CartEntity {
+        -Long id
+        -Set<ProductEntity> products
+        +addProduct(ProductEntity product)
+        +Long getId()
+        +setId(Long id)
+        +Set<ProductEntity> getProducts()
+        +setProducts(Set<ProductEntity> products)
+        +CartEntity()
+        +CartEntity(Set<ProductEntity> products)
+        +String toString()
         +boolean equals(Object o)
         +int hashCode()
-        +String toString()
     }
-    class Product{
+    class ProductEntity{
         <<abstract>>
-        -String productId
-        +String getProductId()
-        +setProductId(String productId)
+        -Long id
+        -Set<CartEntity> carts
+        +Set<CartEntity> getCarts()
+        +setCarts(Set<CartEntity> carts)
+        +Long getId()
+        +setId(Long id)
+        +String getProductType()
+        +String toString()
     }
     class Serializable{
         <<interface>>
     }
-    class Ticket{
-        +String description
-        +double price
+    class TicketEntity{
+        -String description
+        -double price
+        +TicketEntity()
+        +TicketEntity(String d, double p)
         +sellItem()
         +double getPrice()
-        +initialize()
-        +edit()
+        +String getDescription()
+        +setDescription(String d)
+        +setPrice(double p)
         +String toString()
+        +boolean equals(Object o)
+        +int hashCode()
     }
-    class Publication{
+    class PublicationEntity{
         <<abstract>>
         -String title
         -double price
         -int copies
-        +Publication()
-        +Publication(String title, double price, int copies)
-        +initialize()
-        #initPriceCopies()
-        +edit()
+        +PublicationEntity()
+        +PublicationEntity(String t, double p, int c)
+        +sellItem()
         +double getPrice()
-        +setPrice(double price)
         +String getTitle()
-        +setTitle(String title)
+        +setTitle(String t)
+        +setPrice(double p)
         +int getCopies()
-        +setCopies(int copies)
+        +setCopies(int c)
         +String toString()
         +boolean equals(Object o)
         +int hashCode()
     }
-    class Book{
+    class BookEntity{
         -String author
         -String isbn
-        +Book()
-        +Book(String author, String title, double price, int copies, String isbn)
-        +initialize()
-        +edit()
-        +sellItem()
+        +BookEntity()
+        +BookEntity(String t, double p, int c, String author, String isbn)
         +String getAuthor()
-        +setAuthor(String author)
+        +setAuthor(String a)
+        +String getIsbn()
+        +setIsbn(String isbn)
         +String toString()
         +boolean equals(Object o)
         +int hashCode()
     }
-    class Magazine{
+    class MagazineEntity{
         -int orderQty
-        -java.util.Date currentIssue
-        +Magazine()
-        +Magazine(int orderQty, java.util.Date currentIssue, String title, double price, int copies)
-        +initialize()
-        +edit()
-        +sellItem()
+        -LocalDateTime currentIssue
+        +MagazineEntity()
+        +MagazineEntity(String t, double p, int c, int o, LocalDateTime d)
         +int getOrderQty()
         +setOrderQty(int o)
-        +java.util.Date getCurrentIssue()
-        +setCurrentIssue(java.util.Date d)
+        +setCurrentIssue(LocalDateTime d)
+        +LocalDateTime getCurrentIssue()
         +String toString()
+        +boolean equals(Object o)
+        +int hashCode()
     }
-    class DiscMag{
+    class DiscMagEntity{
         -boolean hasDisc
-        +DiscMag()
-        +DiscMag(boolean hasDisc, int orderQty, java.util.Date currentIssue, String title, double price, int copies)
-        +initialize()
-        +edit()
-        +sellItem()
+        +DiscMagEntity()
+        +DiscMagEntity(String t, double p, int c, int o, LocalDateTime d, boolean h)
         +boolean isHasDisc()
         +setHasDisc(boolean h)
         +String toString()
+        +boolean equals(Object o)
+        +int hashCode()
     }
-    class SaleableItem {
+    class SaleableItem{
         <<interface>>
         +sellItem()
         +double getPrice()
     }
-    class ComputerHardware {
+    class ComputerHardwareEntity{
         <<abstract>>
         -int warrantyMonths
         +int getWarrantyMonths()
         +setWarrantyMonths(int warrantyMonths)
-        +ComputerHardware()
-        +ComputerHardware(int warrantyMonths)
+        +ComputerHardwareEntity()
+        +ComputerHardwareEntity(int warrantyMonths)
         +String toString()
         +boolean equals(Object o)
         +int hashCode()
     }
-    class Cpu {
+    class CpuEntity{
         -int coreCount
         +int getCoreCount()
         +setCoreCount(int coreCount)
-        +Cpu()
-        +Cpu(int warrantyMonths, int coreCount)
+        +CpuEntity()
+        +CpuEntity(int warrantyMonths, int coreCount)
+        +sellItem()
+        +double getPrice()
         +String toString()
         +boolean equals(Object o)
         +int hashCode()
-        +edit()
-        +initialize()
-        +sellItem()
-        +double getPrice()
     }
-    class Gpu {
+    class GpuEntity{
         -int vramGb
-        +Gpu()
-        +Gpu(int warrantyMonths, int vramGb)
         +int getVramGb()
         +setVramGb(int vramGb)
-        +edit()
-        +initialize()
+        +GpuEntity()
+        +GpuEntity(int warrantyMonths, int vramGb)
         +sellItem()
         +double getPrice()
         +String toString()
         +boolean equals(Object o)
         +int hashCode()
+    }
+    class OrderEntity{
+        -Long id
+        -Set<ProductEntity> products
+        -double totalAmount
+        -LocalDateTime orderDate
+        +Long getId()
+        +setId(Long id)
+        +double getTotalAmount()
+        +setTotalAmount(double totalAmount)
+        +LocalDateTime getOrderDate()
+        +setOrderDate(LocalDateTime orderDate)
+        +Set<ProductEntity> getProducts()
+        +setProducts(Set<ProductEntity> products)
     }
