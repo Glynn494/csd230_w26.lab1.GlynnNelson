@@ -41,7 +41,7 @@ public class Application implements CommandLineRunner {
     @Transactional
     public void run(String... args) throws Exception {
 
-        /*
+
 
         System.out.println("Creating objects.");
 
@@ -113,7 +113,7 @@ public class Application implements CommandLineRunner {
 
         System.out.println("Adding products to cart and adding cart to cart repository.");
 
-        cart.addProduct(book);
+        //cart.addProduct(book);
 
         cart.addProduct(magazine);
 
@@ -164,7 +164,7 @@ public class Application implements CommandLineRunner {
 
         productRepository.save(gpu);
 
-        cartRepository.save(cart);
+        //cartRepository.save(cart);
 
         System.out.println("Printing products in product repository.");
 
@@ -187,7 +187,7 @@ public class Application implements CommandLineRunner {
 
         System.out.println("Deleting carts in cart repository.");
 
-        cartRepository.deleteAll();
+        //cartRepository.deleteAll();
 
         System.out.println("Sold products.");
 
@@ -204,7 +204,7 @@ public class Application implements CommandLineRunner {
 
         System.out.println("Deleting products in product repository.");
 
-        productRepository.deleteAll();
+        //productRepository.deleteAll();
 
         System.out.println("Sold products.");
 
@@ -216,7 +216,7 @@ public class Application implements CommandLineRunner {
             System.out.println(p.toString());
         }
 
-         */
+
 
     }
 }
