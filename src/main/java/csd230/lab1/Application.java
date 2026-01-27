@@ -41,6 +41,8 @@ public class Application implements CommandLineRunner {
     @Transactional
     public void run(String... args) throws Exception {
 
+        /*
+
         System.out.println("Creating objects.");
 
         Faker faker = new Faker();
@@ -213,6 +215,8 @@ public class Application implements CommandLineRunner {
         for(ProductEntity p : allProducts) {
             System.out.println(p.toString());
         }
+
+         */
 
     }
 }
