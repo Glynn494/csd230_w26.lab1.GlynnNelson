@@ -19,6 +19,9 @@ public class BookEntity extends PublicationEntity {
         this.isbn = isbn;
     }
 
+    public BookEntity(String title, double v, int i, String author) {
+    }
+
     public String getAuthor() { return author; }
     public void setAuthor(String a) { this.author = a; }
 

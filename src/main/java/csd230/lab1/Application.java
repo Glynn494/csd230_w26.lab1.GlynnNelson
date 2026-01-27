@@ -1,222 +1,141 @@
 package csd230.lab1;
 
+
+import com.github.javafaker.Commerce;
 import com.github.javafaker.Faker;
-import csd230.lab1.entities.*;
-import csd230.lab1.repositories.*;
+import csd230.lab1.entities.BookEntity;
+import csd230.lab1.entities.CartEntity;
+import csd230.lab1.entities.ProductEntity;
+import csd230.lab1.entities.UserEntity;
+import csd230.lab1.pojos.Cart;
+import csd230.lab1.pojos.Magazine;
+import csd230.lab1.pojos.Product;
+import csd230.lab1.repositories.CartRepository;
+import csd230.lab1.repositories.ProductRepository;
+import csd230.lab1.repositories.UserEntityRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 
 import java.util.List;
+import java.util.Optional;
+
 
 @SpringBootApplication
 public class Application implements CommandLineRunner {
-    private final BookRepository bookRepository;
-    private final DiscMagRepository discMagRepository;
-    private final CartRepository cartRepository;
-    private final MagazineRepository magazineRepository;
-    private final TicketRepository ticketRepository;
-    private final CpuRepository cpuRepository;
-    private final GpuRepository gpuRepository;
     private final ProductRepository productRepository;
+    private final CartRepository cartRepository;
+    private final UserEntityRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public Application(BookRepository bookRepository, DiscMagRepository discMagRepository, CartRepository cartRepository, MagazineRepository magazineRepository, TicketRepository ticketRepository, CpuRepository cpuRepository, GpuRepository gpuRepository, ProductRepository productRepository) {
-        this.bookRepository = bookRepository;
-        this.discMagRepository = discMagRepository;
-        this.cartRepository = cartRepository;
-        this.magazineRepository = magazineRepository;
-        this.ticketRepository = ticketRepository;
-        this.cpuRepository = cpuRepository;
-        this.gpuRepository = gpuRepository;
+
+    public Application(ProductRepository productRepository,
+                       CartRepository cartRepository,
+                       UserEntityRepository userRepository,
+                       PasswordEncoder passwordEncoder
+    ) {
         this.productRepository = productRepository;
+        this.cartRepository = cartRepository;
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
+
     public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-	}
+        SpringApplication.run(Application.class, args);
+    }
 
 
     @Override
     @Transactional
     public void run(String... args) throws Exception {
-
-
-
-        System.out.println("Creating objects.");
-
         Faker faker = new Faker();
+        Commerce cm = faker.commerce();
+        com.github.javafaker.Number number = faker.number();
+        com.github.javafaker.Book fakeBook = faker.book();
+        String name = cm.productName();
+        String description = cm.material();
+        String priceString = faker.commerce().price();
 
-        CartEntity cart = new CartEntity();
 
         BookEntity book = new BookEntity(
-                faker.book().title(),
-                faker.number().randomDouble(2, 1, 100),
-                faker.random().nextInt(1, 100),
-                faker.book().author(),
-                faker.random().nextInt(1, 10000).toString()
-        );
+                fakeBook.title(),
+                Double.parseDouble(priceString),
+                10,
+                fakeBook.author());
+        ;
 
-        MagazineEntity magazine = new MagazineEntity(
+
+        // --- START NEW CODE ---
+        csd230.lab1.entities.MagazineEntity magazine = new csd230.lab1.entities.MagazineEntity(
                 faker.lorem().word() + " Magazine",
-                faker.number().randomDouble(2, 1, 100),
-                faker.random().nextInt(1, 100),
-                faker.random().nextInt(1, 100),
+                12.99,
+                20,
+                50,
                 java.time.LocalDateTime.now()
         );
 
-        DiscMagEntity discMag = new DiscMagEntity(
-                faker.lorem().word() + " Magazine",
-                faker.number().randomDouble(2, 1, 100),
-                faker.random().nextInt(1, 100),
-                faker.random().nextInt(1, 100),
-                java.time.LocalDateTime.now(),
-                faker.random().nextBoolean()
-        );
 
-        TicketEntity ticket = new TicketEntity(
-                "Ticket for " + faker.superhero().name() + " movie.",
-                faker.number().randomDouble(2, 1, 100)
-        );
-
-        CpuEntity cpu = new CpuEntity(
-                faker.random().nextInt(1, 24),
-                faker.random().nextInt(1, 20)
-        );
-
-        GpuEntity gpu = new GpuEntity(
-                faker.random().nextInt(1, 24),
-                faker.random().nextInt(1, 16)
-        );
-
-        System.out.println("Saving products to product repository.");
-
-        productRepository.save(book);
-
-        productRepository.save(magazine);
-
-        productRepository.save(discMag);
-
-        productRepository.save(ticket);
-
-        productRepository.save(cpu);
-
-        productRepository.save(gpu);
-
-        System.out.println("Printing products in product repository.");
-
-        // Fetch and print
-        List<ProductEntity> allProducts = productRepository.findAll();
-        for(ProductEntity p : allProducts) {
-            System.out.println(p.toString());
-        }
-
-        System.out.println("Adding products to cart and adding cart to cart repository.");
-
-        //cart.addProduct(book);
-
-        cart.addProduct(magazine);
-
-        cart.addProduct(discMag);
-
-        cart.addProduct(ticket);
-
-        cart.addProduct(cpu);
-
-        cart.addProduct(gpu);
-
+        CartEntity cart = new CartEntity();
         cartRepository.save(cart);
 
-        System.out.println("Printing carts in cart repository and products in carts.");
 
-        // Fetch and print
+        // create a book
+        // add book to the cart
+        cart.addProduct(book);
+        // book.setCart(cart); // dont have to set cart because cart.addProduct() does it for you
+        cartRepository.save(cart);
+
+
+        cart.addProduct(magazine);
+        // magazine.setCart(cart);
+        cartRepository.save(cart);
+
+
+
+
+        // productRepository.save(book);
+
+
+
+
+        List<ProductEntity> allProducts = productRepository.findAll();
+
+
+        for (ProductEntity p : allProducts) {
+            System.out.println(p.toString());
+        }
         List<CartEntity> allCarts = cartRepository.findAll();
-        for(CartEntity c : allCarts) {
+        for (CartEntity c : allCarts) {
             System.out.println(c.toString());
-            for(ProductEntity p : c.getProducts()) {
+            for (ProductEntity p : c.getProducts()) {
                 System.out.println(p.toString());
             }
         }
 
-        System.out.println("Updating products.");
 
-        book.setAuthor(faker.book().author());
+        // ------------------------------------
+        // CREATE USERS (Lecture 2.6)
+        // ------------------------------------
 
-        magazine.setTitle(faker.lorem().word() + " Magazine");
 
-        discMag.setTitle(faker.lorem().word() + " Magazine");
+        // Admin User (Can Add/Edit/Delete)
+        UserEntity admin = new UserEntity("admin", passwordEncoder.encode("admin"), "ADMIN");
+        userRepository.save(admin);
 
-        ticket.setDescription("Ticket for " + faker.superhero().name() + " movie.");
 
-        cpu.setCoreCount(faker.random().nextInt(1, 20));
+        // Regular User (Can only View/Buy)
+        UserEntity user = new UserEntity("user", passwordEncoder.encode("user"), "USER");
+        userRepository.save(user);
 
-        gpu.setVramGb(faker.random().nextInt(1, 16));
 
-        productRepository.save(book);
-
-        productRepository.save(magazine);
-
-        productRepository.save(discMag);
-
-        productRepository.save(ticket);
-
-        productRepository.save(cpu);
-
-        productRepository.save(gpu);
-
-        //cartRepository.save(cart);
-
-        System.out.println("Printing products in product repository.");
-
-        // Fetch and print
-        allProducts = productRepository.findAll();
-        for(ProductEntity p : allProducts) {
-            System.out.println(p.toString());
-        }
-
-        System.out.println("Printing carts in cart repository and products in carts.");
-
-        // Fetch and print
-        allCarts = cartRepository.findAll();
-        for(CartEntity c : allCarts) {
-            System.out.println(c.toString());
-            for(ProductEntity p : c.getProducts()) {
-                System.out.println(p.toString());
-            }
-        }
-
-        System.out.println("Deleting carts in cart repository.");
-
-        //cartRepository.deleteAll();
-
-        System.out.println("Sold products.");
-
-        System.out.println("Printing carts in cart repository and products in carts.");
-
-        // Fetch and print
-        allCarts = cartRepository.findAll();
-        for(CartEntity c : allCarts) {
-            System.out.println(c.toString());
-            for(ProductEntity p : c.getProducts()) {
-                System.out.println(p.toString());
-            }
-        }
-
-        System.out.println("Deleting products in product repository.");
-
-        //productRepository.deleteAll();
-
-        System.out.println("Sold products.");
-
-        System.out.println("Printing products in product repository.");
-
-        // Fetch and print
-        allProducts = productRepository.findAll();
-        for(ProductEntity p : allProducts) {
-            System.out.println(p.toString());
-        }
-
+        System.out.println("Default users created: admin/admin and user/user");
 
 
     }
+
+
 }
