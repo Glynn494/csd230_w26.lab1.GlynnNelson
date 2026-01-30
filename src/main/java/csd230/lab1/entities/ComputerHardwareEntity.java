@@ -4,7 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
 import java.util.Objects;
-import java.util.Set;
+
 
 @Entity
 public abstract class ComputerHardwareEntity extends ProductEntity {

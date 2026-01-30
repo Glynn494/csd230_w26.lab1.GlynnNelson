@@ -7,9 +7,6 @@ import csd230.lab1.entities.BookEntity;
 import csd230.lab1.entities.CartEntity;
 import csd230.lab1.entities.ProductEntity;
 import csd230.lab1.entities.UserEntity;
-import csd230.lab1.pojos.Cart;
-import csd230.lab1.pojos.Magazine;
-import csd230.lab1.pojos.Product;
 import csd230.lab1.repositories.CartRepository;
 import csd230.lab1.repositories.ProductRepository;
 import csd230.lab1.repositories.UserEntityRepository;
@@ -21,7 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 import java.util.List;
-import java.util.Optional;
+
 
 
 @SpringBootApplication

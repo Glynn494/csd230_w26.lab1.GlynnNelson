@@ -3,7 +3,8 @@ import jakarta.persistence.*;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
-
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.JoinColumn;
 @Entity
 @Table(name = "cart_entity")
 public class CartEntity {
@@ -20,6 +21,12 @@ public class CartEntity {
     )
 
     private Set<ProductEntity> products = new LinkedHashSet<>();
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
+    // ... Getters and Setters for user ...
+    public UserEntity getUser() { return user; }
+    public void setUser(UserEntity user) { this.user = user; }
     public void addProduct(ProductEntity product) {
         this.products.add(product);
         product.getCarts().add(this); // Maintain the link on both sides
